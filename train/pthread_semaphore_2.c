@@ -13,6 +13,7 @@ typedef struct	s_sem
 {
 	sem_t		semaphore;
 	int			count;
+	int			valp;
 }				t_sem;
 
 void		*worker1(void *args)
@@ -34,7 +35,12 @@ void		*worker1(void *args)
 		sleep(1);
 		/*Если значение семафора отрицательное, по вызывающий
 		поток блокируется до тех пор, пока один из потоков не
-		вызовет sem_post*/
+		вызовет sem_post
+		
+		int		sem_post(sem_t *sem)
+		
+		Эта функция увеличиывает значение семафора и разблокирует
+		близжайшие потоки.*/
 		sem_post(&(flash_gitz->semaphore));
 	}
 }
@@ -85,6 +91,14 @@ int			main(void)
 	pthread_create(&thread2, NULL, worker2, (void *)&kaizer);
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
+
+	/*sem_destroy(sem_t *sem) - эта функция уничтожает семафор
+	Кроме того, можно получить текущее значение семафора через функцию
+	
+	int	sem_getvalue(sem_t *sem, int *valp)*/
+	printf("the current value of semaphore: %d\n",
+	sem_getvalue(&(kaizer.semaphore), &(kaizer.valp)));
+	printf("the valp value: %d\n", kaizer.valp);
 	sem_destroy(&(kaizer.semaphore));
 	printf(" == %d\n", kaizer.count);
 	return (0);
