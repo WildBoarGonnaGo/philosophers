@@ -8,3 +8,4 @@
 + [Debugging threads with gdb](https://ftp.gnu.org/old-gnu/Manuals/gdb/html_node/gdb_24.html)
 + [Mutex lock of threads sync](https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/)
 + [Semaphores in process syncronization](https://www.geeksforgeeks.org/semaphores-in-process-synchronization/)
++ [Семафоры на языке Си](https://learnc.info/c/pthreads_semaphores.html)
