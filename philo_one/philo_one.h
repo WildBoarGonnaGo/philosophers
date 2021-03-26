@@ -6,7 +6,7 @@
 /*   By: lchantel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:35:51 by lchantel          #+#    #+#             */
-/*   Updated: 2021/03/24 00:13:10 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/03/25 20:55:13 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 typedef unsigned short	uint16;
 typedef	unsigned int	uint32;
 
+
+
 typedef	struct			s_philo_one
 {
 	uint16			num_of_philo;
@@ -37,6 +39,8 @@ typedef	struct			s_philo_one
 	struct timeval	time_info;
 	uint16			num_fork;
 	pthread_t		*plan;
+	pthread_mutex_t	*chopstick;
+	int				indx[2];
 }						t_philo_one;
 
 int						wb_atoi(char *str, int res, int flags);
