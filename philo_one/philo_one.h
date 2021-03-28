@@ -6,7 +6,7 @@
 /*   By: lchantel <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 20:35:51 by lchantel          #+#    #+#             */
-/*   Updated: 2021/03/25 20:55:13 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/03/28 23:20:44 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,28 @@
 
 typedef unsigned short	uint16;
 typedef	unsigned int	uint32;
-
-
+//typedef long			millseconds;
 
 typedef	struct			s_philo_one
 {
 	uint16			num_of_philo;
-	uint16			time_to_die;
-	uint16			time_to_eat;
-	uint16			num_times_philo_eat;
-	struct timeval	time_info;
+	useconds_t		time_to_die;
+	useconds_t		time_to_eat;
+	useconds_t		time_to_sleep;
+	int				num_times_philo_eat;
+	struct timeval	time_val;
+	//struct timezone	*time_zone;
 	uint16			num_fork;
-	pthread_t		*plan;
+	pthread_t		*philo;
 	pthread_mutex_t	*chopstick;
 	int				indx[2];
+	int				error[5];
+	int				*starvation;
+	long			*time_travel;
+	long			*old_time;
+	//long			*prefix;
 }						t_philo_one;
 
-int						wb_atoi(char *str, int res, int flags);
-
+uint16					wb_atoi(char *str, uint16 res, int flags);
 
 #endif

@@ -9,3 +9,4 @@
 + [Mutex lock of threads sync](https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/)
 + [Semaphores in process syncronization](https://www.geeksforgeeks.org/semaphores-in-process-synchronization/)
 + [Семафоры на языке Си](https://learnc.info/c/pthreads_semaphores.html)
++ [One of the solutions](https://www.fatalerrors.org/a/linux-c-philosopher-dining-problem-multithreaded-version.html)
