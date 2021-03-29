@@ -36,8 +36,8 @@ void    *thr(void *arg)
         //Aplly for the lock on the right
         if ((pthread_mutex_trylock(&lock[right])) != 0)
         {
-            pthread_mutex_unlock(&lock[left]);
-            printf(" ==thread %d == Application failed\n", i);
+			pthread_mutex_unlock(&lock[left]);
+            //printf(" ==thread %d == Application failed\n", i);
             continue ;
         }
         //Both sides succesfully applied
