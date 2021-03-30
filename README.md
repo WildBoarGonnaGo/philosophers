@@ -11,3 +11,4 @@
 + [Семафоры на языке Си](https://learnc.info/c/pthreads_semaphores.html)
 + [One of the solutions](https://www.fatalerrors.org/a/linux-c-philosopher-dining-problem-multithreaded-version.html)
 + [Rosseta's code implementation of philosophers with mutex](https://rosettacode.org/wiki/Dining_philosophers#C)
++ [Дедлоки и проблема объедающих философов](https://learnc.info/c/pthreads_deadlock.html)
