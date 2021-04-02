@@ -49,6 +49,14 @@ typedef struct          s_philo_data
 
 //pthread_mutex_t take_forks = PTHREAD_MUTEX_INITIALIZER;
 
+long					return_usec_round(useconds_t time)
+{
+	long	check;
+
+	check = (time / 100) - (time / 1000) * 10;
+	return (check > 5) ? (time / 1000 + 1) : (time / 1000);
+}
+
 int		wb_isdigit(char c)
 {
 	return ((c >= '0' && c <= '9'));
@@ -88,11 +96,14 @@ uint16		wb_atoi(char *str, uint16 res, int flags)
 void                    philo_data_init(t_philo *philo, uint32 num,
 						uint32 left, uint32 right)
 {
+	struct timeval	temp;
+
 	philo->num = num;
 	philo->left_fork = left;
 	philo->right_fork = right;
+	gettimeofday(&temp, NULL);
 	philo->time_travel = 0;
-	philo->old_time = 0;
+	philo->old_time = temp.tv_sec * 1000 + return_usec_round(temp.tv_usec);
 }
 
 void                    time_data_proc_init(t_time *time_input, int argc, char *argv[])
@@ -113,15 +124,6 @@ void                    forks_data_init(t_forks *forks, pthread_mutex_t *addr)
 		pthread_mutex_init(&forks->forks[i], NULL);
 	forks->take_forks = addr;
 }
-
-long					return_usec_round(useconds_t time)
-{
-	long	check;
-
-	check = (time / 100) - (time / 1000) * 10;
-	return (check > 5) ? (time / 1000 + 1) : (time / 1000);
-}
-
 
 void					philo_is_eating(t_philo_data *philo_data)
 {
@@ -163,9 +165,9 @@ void					calculate_time(t_philo_data *data, useconds_t sleep,
 {
 	usleep(sleep);
 	gettimeofday(&data->philo->cur_time, NULL);
-	data->philo->time_travel = data->philo->cur_time.tv_sec * 1000 +
+	data->philo->time_travel += data->philo->cur_time.tv_sec * 1000 +
 	return_usec_round(data->philo->cur_time.tv_usec) - data->philo->old_time;
-	data->philo->old_time = data->philo->time_travel;
+	data->philo->old_time = data->philo->cur_time.tv_sec * 1000 + return_usec_round(data->philo->cur_time.tv_usec);
 	starve(data);
 }
 
