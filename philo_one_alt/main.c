@@ -15,7 +15,7 @@ t_philo_data			*num_of_philo_init(t_time *time_set, t_forks *forks_set)
 		memset((void *)&data[i], 0, sizeof(t_philo_data) - 1);
 		data[i].philo = (t_philo *)malloc(sizeof(t_philo));
 		data[i].forks = (t_forks *)malloc(sizeof(t_forks));
-		data[i].forks = (t_forks *)malloc(sizeof(t_forks));
+		//data[i].forks = (t_forks *)malloc(sizeof(t_forks));
 		philo_data_init(data[i].philo, i, i % time_set->num_of_philo,
 		(i + 1) % time_set->num_of_philo);
 		data[i].philo->philo_hp = (long)time_set->time_to_die; 
@@ -59,8 +59,14 @@ int						main(int argc, char *argv[])
 	}
 	time_set.i = -1;
 	while (++time_set.i < time_set.num_of_philo)
-		pthread_join(thread_id[time_set.i], NULL);
-	time_set.i = -1;
+		//pthread_join(thread_id[time_set.i], NULL);
+		pthread_detach(thread_id[time_set.i]);
+	while (1)
+	{
+		if (time_set.error)
+			break ;
+	}
+	//time_set.i = -1;
 	while (++time_set.i < time_set.num_of_philo)
 		pthread_mutex_destroy(&forks_set.forks[time_set.i]);
 	pthread_mutex_destroy(&time_set.take_forks);

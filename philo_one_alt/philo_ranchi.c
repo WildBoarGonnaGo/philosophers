@@ -23,6 +23,7 @@ void                    *philo_ranchi(void *data)
         calculate_time(philo_manager, 0, philo_takes_fork);
 		if (philo_manager->misc->error)
 			break ;
+		//pthread_mutex_unlock(&philo_manager->misc->take_forks);
 		calculate_time(philo_manager, philo_manager->misc->time_to_eat,
 		philo_is_eating);
 		if (philo_manager->misc->error)

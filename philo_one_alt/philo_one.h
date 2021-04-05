@@ -62,7 +62,7 @@ void                    time_data_proc_init(t_time *time_input,
 void					philo_is_eating(t_philo_data *philo_data, long delta);
 void					philo_is_sleeping(t_philo_data *philo_data, long delta);
 void					philo_takes_fork(t_philo_data *philo_data, long delta);
-void					calculate_time(t_philo_data *data, useconds_t sleep,
+void					calculate_time(t_philo_data *data, long sleep,
 						void (*starve)(t_philo_data *, long delta));
 void                    *philo_seikatsu(void *data);
 t_philo_data			*num_of_philo_init(t_time *time_set,
