@@ -36,7 +36,7 @@ typedef struct          s_philo
 	uint32          left_fork;
 	uint32          right_fork;
 	struct timeval  cur_time;
-	long            time_travel;
+	long   			time_travel;
 	long			old_time;
 	long			philo_hp;
 	t_time          *input_time_data;
