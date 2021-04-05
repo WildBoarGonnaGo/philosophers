@@ -8,7 +8,6 @@
 # include <sys/time.h>
 # include <string.h>
 
-# define NUM_OF_PHILO 5
 # define ZERO 0b0001
 # define PLUSMINUS 0b0010
 # define SPACE 0b0100
@@ -27,7 +26,7 @@ typedef struct          s_time
 	int				number_of_time_philo_eats;
 	int				error;
     int				i;
-    pthread_mutex_t	*take_forks;
+    pthread_mutex_t	take_forks;
 }                       t_time;
 
 typedef struct          s_philo
@@ -36,10 +35,9 @@ typedef struct          s_philo
 	uint32          left_fork;
 	uint32          right_fork;
 	struct timeval  cur_time;
-	long            time_travel;
+	long   			time_travel;
 	long			old_time;
 	long			philo_hp;
-	t_time          *input_time_data;
 }                       t_philo;
 
 typedef struct          s_forks
@@ -61,15 +59,14 @@ void                    philo_data_init(t_philo *philo, uint32 num,
 void                    forks_data_init(t_forks *forks, t_time time_set);
 void                    time_data_proc_init(t_time *time_input,
                         int argc, char *argv[]);
-void					philo_is_eating(t_philo_data *philo_data);
-void					philo_is_sleeping(t_philo_data *philo_data);
-void					philo_takes_fork(t_philo_data *philo_data);
+void					philo_is_eating(t_philo_data *philo_data, long delta);
+void					philo_is_sleeping(t_philo_data *philo_data, long delta);
+void					philo_takes_fork(t_philo_data *philo_data, long delta);
 void					calculate_time(t_philo_data *data, useconds_t sleep,
-						void (*starve)(t_philo_data *));
-void                    *philos_lives_matter(void *data);
-//t_philo_data			*num_of_philo_init(t_philo_data **philo_data, t_time *time_set,
-//						pthread_mutex_t *addr, t_forks *forks_set);
+						void (*starve)(t_philo_data *, long delta));
+void                    *philo_seikatsu(void *data);
 t_philo_data			*num_of_philo_init(t_time *time_set,
-						/*pthread_mutex_t *addr,*/ t_forks *forks_set);
+						t_forks *forks_set);
+void                    *philo_ranchi(void *data);
 
 #endif
