@@ -10,8 +10,9 @@ void                    *philo_ranchi(void *data)
 	philo_manager = (t_philo_data *)data;
 	philo_init = philo_manager->philo;
 	forks_init = philo_manager->forks;
-    i = -1;
-	while (++i < philo_manager->misc->number_of_time_philo_eats)
+    philo_manager->philo->ranchi_indx = -1;
+	while (++philo_manager->philo->ranchi_indx 
+	< philo_manager->misc->number_of_time_philo_eats)
 	{
 		pthread_mutex_lock(&philo_manager->misc->take_forks);
 		pthread_mutex_lock(&forks_init->forks[philo_init->left_fork]);

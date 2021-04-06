@@ -48,27 +48,48 @@ int						main(int argc, char *argv[])
 	if (time_set.number_of_time_philo_eats == -1)
 	{
 		while (++time_set.i < time_set.num_of_philo)
+		{
 			pthread_create(&thread_id[time_set.i], NULL,
 			philo_seikatsu, (void *)&philo_data_set[time_set.i]);
+		}
 	}
 	else
 	{
 		while (++time_set.i < time_set.num_of_philo)
+		{
+			philo_data_set[time_set.i].philo->ranchi_indx = 0;
 			pthread_create(&thread_id[time_set.i], NULL,
 			philo_ranchi, (void *)&philo_data_set[time_set.i]);
+		}
 	}
 	time_set.i = -1;
 	while (++time_set.i < time_set.num_of_philo)
-		//pthread_join(thread_id[time_set.i], NULL);
-		pthread_detach(thread_id[time_set.i]);
-	while (1)
 	{
-		if (time_set.error)
-			break ;
+		if (time_set.number_of_time_philo_eats != -1 &&
+		!time_set.error)
+			pthread_join(thread_id[time_set.i], NULL);
+		else
+		pthread_detach(thread_id[time_set.i]);
 	}
-	//time_set.i = -1;
+	time_set.detach_moveout = 0;
+	if (time_set.number_of_time_philo_eats == -1)
+	{
+		while (1)
+		{
+			if (time_set.error)
+				break ;
+		}
+	}
 	while (++time_set.i < time_set.num_of_philo)
 		pthread_mutex_destroy(&forks_set.forks[time_set.i]);
 	pthread_mutex_destroy(&time_set.take_forks);
+	time_set.i = -1;
+	while (++time_set.i < time_set.num_of_philo)
+	{
+		memfree_alloc((void **)&philo_data_set[time_set.i].philo);
+		memfree_alloc((void **)&philo_data_set[time_set.i].forks);
+	}
+	memfree_alloc((void **)&philo_data_set);
+	memfree_alloc((void **)&thread_id);
 	return (0);
 }

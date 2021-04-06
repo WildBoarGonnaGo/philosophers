@@ -26,6 +26,7 @@ typedef struct          s_time
 	int				number_of_time_philo_eats;
 	int				error;
     int				i;
+	int				detach_moveout;
     pthread_mutex_t	take_forks;
 }                       t_time;
 
@@ -38,6 +39,7 @@ typedef struct          s_philo
 	long   			time_travel;
 	long			old_time;
 	long			philo_hp;
+	int				ranchi_indx;
 }                       t_philo;
 
 typedef struct          s_forks
@@ -68,5 +70,7 @@ void                    *philo_seikatsu(void *data);
 t_philo_data			*num_of_philo_init(t_time *time_set,
 						t_forks *forks_set);
 void                    *philo_ranchi(void *data);
+void    				memfree_alloc(void **addr);
+void    				memfree_alloc2(void ***addr, int size);
 
 #endif
