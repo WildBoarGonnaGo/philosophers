@@ -12,3 +12,7 @@
 + [One of the solutions](https://www.fatalerrors.org/a/linux-c-philosopher-dining-problem-multithreaded-version.html)
 + [Rosseta's code implementation of philosophers with mutex](https://rosettacode.org/wiki/Dining_philosophers#C)
 + [Дедлоки и проблема объедающих философов](https://learnc.info/c/pthreads_deadlock.html)
+
+## Видео брифинги
+
++ [07.04.2021](https://www.youtube.com/watch?v=4Lhjku20ED4) - с 18:00 рассказ про семафоры

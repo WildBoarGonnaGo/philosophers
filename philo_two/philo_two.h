@@ -7,6 +7,7 @@
 # include <stdio.h>
 # include <sys/time.h>
 # include <string.h>
+# include <semaphore.h>
 
 # define ZERO 0b0001
 # define PLUSMINUS 0b0010
@@ -27,7 +28,7 @@ typedef struct          s_time
 	int				error;
     int				i;
 	int				detach_moveout;
-    pthread_mutex_t	take_forks;
+    sem_t			take_forks;
 }                       t_time;
 
 typedef struct          s_philo
@@ -44,7 +45,7 @@ typedef struct          s_philo
 
 typedef struct          s_forks
 {
-	pthread_mutex_t *forks;
+	sem_t	*forks;
 }                       t_forks;
 
 typedef struct          s_philo_data

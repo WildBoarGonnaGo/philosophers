@@ -1,4 +1,4 @@
-#include "philo_two.h"
+#include "philo_one.h"
 
 t_philo_data			*num_of_philo_init(t_time *time_set, t_forks *forks_set)
 {
@@ -24,6 +24,18 @@ t_philo_data			*num_of_philo_init(t_time *time_set, t_forks *forks_set)
 	}
 	return (data);
 }
+
+int						check_if_philo_satiety(int i, t_philo_data *data)
+{
+	if (data[i].misc->number_of_time_philo_eats == -1)
+		return (0);
+	else if (data[i].philo->ranchi_indx !=
+	data[i].misc->number_of_time_philo_eats)
+		return (0);
+	else if (i < data[i].misc->num_of_philo)
+		check_if_philo_satiety(++i, data);
+	return (1);
+}					
 
 int						main(int argc, char *argv[])
 {
@@ -51,6 +63,7 @@ int						main(int argc, char *argv[])
 		{
 			pthread_create(&thread_id[time_set.i], NULL,
 			philo_seikatsu, (void *)&philo_data_set[time_set.i]);
+			pthread_detach(thread_id[time_set.i]);
 		}
 	}
 	else
@@ -60,36 +73,25 @@ int						main(int argc, char *argv[])
 			philo_data_set[time_set.i].philo->ranchi_indx = 0;
 			pthread_create(&thread_id[time_set.i], NULL,
 			philo_ranchi, (void *)&philo_data_set[time_set.i]);
+			pthread_detach(thread_id[time_set.i]);
 		}
 	}
-	time_set.i = -1;
-	while (++time_set.i < time_set.num_of_philo)
+	while (1)
 	{
-		if (time_set.number_of_time_philo_eats != -1 &&
-		!time_set.error)
-			pthread_join(thread_id[time_set.i], NULL);
-		else
-		pthread_detach(thread_id[time_set.i]);
-	}
-	time_set.detach_moveout = 0;
-	if (time_set.number_of_time_philo_eats == -1)
-	{
-		while (1)
-		{
-			if (time_set.error)
-				break ;
-		}
+		if (time_set.error || 
+		check_if_philo_satiety(0, philo_data_set))
+			break ;
 	}
 	while (++time_set.i < time_set.num_of_philo)
 		pthread_mutex_destroy(&forks_set.forks[time_set.i]);
 	pthread_mutex_destroy(&time_set.take_forks);
-	time_set.i = -1;
-	while (++time_set.i < time_set.num_of_philo)
+	//time_set.i = -1;
+	/*while (++time_set.i < time_set.num_of_philo)
 	{
 		memfree_alloc((void **)&philo_data_set[time_set.i].philo);
 		memfree_alloc((void **)&philo_data_set[time_set.i].forks);
 	}
 	memfree_alloc((void **)&philo_data_set);
-	memfree_alloc((void **)&thread_id);
+	memfree_alloc((void **)&thread_id);*/
 	return (0);
 }
