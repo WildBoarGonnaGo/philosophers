@@ -12,6 +12,7 @@
 + [One of the solutions](https://www.fatalerrors.org/a/linux-c-philosopher-dining-problem-multithreaded-version.html)
 + [Rosseta's code implementation of philosophers with mutex](https://rosettacode.org/wiki/Dining_philosophers#C)
 + [Дедлоки и проблема объедающих философов](https://learnc.info/c/pthreads_deadlock.html)
++ [Dining philosophers with semaphores (GeeksForGeeks)](https://www.geeksforgeeks.org/dining-philosopher-problem-using-semaphores/)
 
 ## Видео брифинги
 
