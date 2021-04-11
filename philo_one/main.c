@@ -85,13 +85,5 @@ int						main(int argc, char *argv[])
 	while (++time_set.i < time_set.num_of_philo)
 		pthread_mutex_destroy(&forks_set.forks[time_set.i]);
 	pthread_mutex_destroy(&time_set.take_forks);
-	//time_set.i = -1;
-	/*while (++time_set.i < time_set.num_of_philo)
-	{
-		memfree_alloc((void **)&philo_data_set[time_set.i].philo);
-		memfree_alloc((void **)&philo_data_set[time_set.i].forks);
-	}
-	memfree_alloc((void **)&philo_data_set);
-	memfree_alloc((void **)&thread_id);*/
 	return (0);
 }

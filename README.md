@@ -13,7 +13,9 @@
 + [Rosseta's code implementation of philosophers with mutex](https://rosettacode.org/wiki/Dining_philosophers#C)
 + [Дедлоки и проблема объедающих философов](https://learnc.info/c/pthreads_deadlock.html)
 + [Dining philosophers with semaphores (GeeksForGeeks)](https://www.geeksforgeeks.org/dining-philosopher-problem-using-semaphores/)
++ [Dining philosophers with fork()](https://stackoverflow.com/questions/17092121/dining-philosophers-in-c-using-fork)
 
 ## Видео брифинги
 
 + [07.04.2021](https://www.youtube.com/watch?v=4Lhjku20ED4) - с 18:00 рассказ про семафоры
++ [11.04.2021 - philo_three брифинг](https://www.youtube.com/watch?v=yqtrviv3Wdw&list=PLfrRLsw8WKx_Y_qz28Vw_M6cw9PhIlddR&index=2)

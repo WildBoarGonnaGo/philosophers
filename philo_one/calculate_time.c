@@ -11,7 +11,7 @@ void					calculate_time(t_philo_data *data, long sleep,
 	return_usec_round(data->philo->cur_time.tv_usec) - data->philo->old_time;
 	delta = (data->philo->cur_time.tv_sec * 1000 +
 	return_usec_round(data->philo->cur_time.tv_usec) - data->philo->old_time) * 1000;
-	data->philo->old_time = data->philo->cur_time.tv_sec * 1000 +
-    return_usec_round(data->philo->cur_time.tv_usec);
+	/*data->philo->old_time = data->philo->cur_time.tv_sec * 1000 +
+    return_usec_round(data->philo->cur_time.tv_usec);*/
 	starve(data, delta);
 }

@@ -5,7 +5,7 @@ void                    *philo_ranchi(void *data)
 	t_philo_data    *philo_manager;
 	t_philo         *philo_init;
 	t_forks         *forks_init;
-    int             i;
+    //int             i;
 
 	philo_manager = (t_philo_data *)data;
 	philo_init = philo_manager->philo;
