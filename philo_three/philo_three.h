@@ -34,11 +34,13 @@ typedef struct  s_misc
     int     		num_of_time_philo_must_eat;
     int             status;
     uint16      	philo_num;
+    uint16          sem_philo_dish;
 	//pid_t			*philo_pid;
-	//sem_t			*dead_philo;
-    uint16          dead_philo;
+	sem_t			*dead_philo;
+    uint16          dead_philo_flag;
 	sem_t			*chopstick;
 	sem_t			*waiter;
+    sem_t           *swallow;
 	struct timeval	cur_time;
 }               t_misc;
 
@@ -49,11 +51,13 @@ typedef struct  s_fork_philo
     uint16      swallow;
     int         left_hand;
     int         right_hand;
+    //int         philo_done_eat;
     uint16		satiate_philo;
     t_misc      *misc_data;
 	long		philo_hp;
 	long		time_travel;
 	long		old_time;
+	int			philo_died;
 }               t_fork_philo;
 
 uint16			wb_atoi(char *str, uint16 res, int flags);

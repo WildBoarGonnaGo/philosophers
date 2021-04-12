@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 18:57:35 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/11 21:26:49 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/12 21:38:22 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_fork_philo	*fork_philo_init_data(t_misc *misc)
         data[i].num = i;
 		data[i].swallow = 0;
 		data[i].satiate_philo = 0;
+		data[i].philo_died = 0;
 	}
 	return (data);
 }
