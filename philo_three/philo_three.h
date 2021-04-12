@@ -9,6 +9,7 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/time.h>
+# include <sys/wait.h>
 # include <semaphore.h>
 # include <fcntl.h>
 
@@ -31,20 +32,24 @@ typedef struct  s_misc
     long    		time_to_sleep;
     long    		time_to_eat;
     int     		num_of_time_philo_must_eat;
+    int             status;
     uint16      	philo_num;
-	pid_t			*philo_pid;
-	sem_t			*dead_philo;
+	//pid_t			*philo_pid;
+	//sem_t			*dead_philo;
+    uint16          dead_philo;
 	sem_t			*chopstick;
-	sem_t			*swallow;
-	sem_t			*output;
+	sem_t			*waiter;
 	struct timeval	cur_time;
 }               t_misc;
 
 typedef struct  s_fork_philo
 {
     uint16      num;
+    pid_t       philo_pid;
+    uint16      swallow;
     int         left_hand;
     int         right_hand;
+    uint16		satiate_philo;
     t_misc      *misc_data;
 	long		philo_hp;
 	long		time_travel;
@@ -53,6 +58,6 @@ typedef struct  s_fork_philo
 
 uint16			wb_atoi(char *str, uint16 res, int flags);
 int				misc_init_data(t_misc *data, int argc, char *argv[]);
-int				fork_philo_init_data(t_fork_philo *data, t_misc *misc);
+t_fork_philo	*fork_philo_init_data(t_misc *misc);
 
 #endif

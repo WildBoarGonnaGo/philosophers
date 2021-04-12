@@ -12,16 +12,17 @@
 
 #include "philo_three.h"
 
-int				fork_philo_init_data(t_fork_philo *data, t_misc *misc)
+t_fork_philo	*fork_philo_init_data(t_misc *misc)
 {
-	int	i;
+	int				i;
+	t_fork_philo	*data;
 
 	data = (t_fork_philo *)malloc(sizeof(t_fork_philo) * misc->philo_num);
-	misc->philo_pid = (pid_t *)malloc(sizeof(pid_t) * misc->philo_num);
-	if (!data || !misc)
+	//misc->philo_pid = (pid_t *)malloc(sizeof(pid_t) * misc->philo_num);
+	if (!data)
 	{
 		printf("philo_three: error: system insufficient resources\n");
-		return (EXIT_FAILURE);
+		return (NULL);
 	}
 	i = -1;
 	while (++i < misc->philo_num)
@@ -31,8 +32,12 @@ int				fork_philo_init_data(t_fork_philo *data, t_misc *misc)
 		data[i].misc_data = misc;
 		data[i].philo_hp = misc->time_to_die;
 		data[i].time_travel = 0;
-		data[i].old_time = gettimeofday(&misc->chopstick, NULL);
+		gettimeofday(&misc->cur_time, NULL);
+		data[i].old_time = misc->cur_time.tv_sec * 1000 +
+		misc->cur_time.tv_usec / 1000;
         data[i].num = i;
+		data[i].swallow = 0;
+		data[i].satiate_philo = 0;
 	}
-	return (EXIT_SUCCESS);
+	return (data);
 }

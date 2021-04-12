@@ -21,12 +21,12 @@
 int 			philo_is_eating(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%d %ld is eating\n", crnl->num, old_time);
+	printf("%ld %d is eating\n", old_time, crnl->num + 1);
 	crnl->philo_hp = crnl->misc_data->time_to_die - diff_time;
 	if (crnl->philo_hp <= 0)
 	{
-		printf("%d %ld died\n", crnl->num, old_time);
-		return (EXIT_FAILURE);
+		printf("%ld %d died\n", old_time, crnl->num + 1);
+		//return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -34,12 +34,12 @@ int 			philo_is_eating(t_fork_philo *crnl, long diff_time,
 int				philo_is_sleeping(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%d %ld is sleeping\n", crnl->num, old_time);
+	printf("%ld %d is sleeping\n", old_time, crnl->num + 1);
 	crnl->philo_hp -= diff_time;
 	if (crnl->philo_hp <= 0)
 	{
-		printf("%d %ld died\n", crnl->num, old_time);
-		return (EXIT_FAILURE);
+		printf("%ld %d died\n", old_time, crnl->num + 1);
+		//return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -47,12 +47,12 @@ int				philo_is_sleeping(t_fork_philo *crnl, long diff_time,
 int				philo_is_thinking(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%d %ld has taken a fork\n", crnl->num, old_time);
+	printf("%ld %d is thinking\n", old_time, crnl->num + 1);
 	crnl->philo_hp -= diff_time;
 	if (crnl->philo_hp <= 0)
 	{
-		printf("%d %ld died\n", crnl->num, old_time);
-		return (EXIT_FAILURE);
+		printf("%ld %d died\n", old_time, crnl->num + 1);
+		//return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -60,12 +60,12 @@ int				philo_is_thinking(t_fork_philo *crnl, long diff_time,
 int				philo_takes_fork(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%d %ld has taken a fork\n", crnl->num, old_time);
+	printf("%ld %d has taken a fork\n", old_time, crnl->num + 1);
 	crnl->philo_hp -= diff_time;
 	if (crnl->philo_hp <= 0)
 	{
-		printf("%d %ld died\n", crnl->num, old_time);
-		return (EXIT_FAILURE);
+		printf("%ld %d died\n", old_time, crnl->num + 1);
+		//return (EXIT_FAILURE);
 	}
 	return (EXIT_SUCCESS);
 }
@@ -85,9 +85,90 @@ int				calculate_time(t_fork_philo *data,
 	return (func(data, diff_time, old_time));
 }
 
-void			philo_proc(t_fork_philo *proc)
+void			*check_philo_table(void *data)
 {
-	
+	t_fork_philo	*checker;
+
+	checker = (t_fork_philo *)data;
+	while (1)
+	{
+		if (checker->philo_hp <= 0 || checker->swallow ==
+		checker->misc_data->num_of_time_philo_must_eat)
+		{	
+			checker->misc_data->dead_philo +=
+			(checker->philo_hp <= 0);
+			checker->satiate_philo += (checker->swallow ==
+			checker->misc_data->num_of_time_philo_must_eat);
+			return (NULL);
+		}
+	}
+	return (NULL);
+}
+
+void			philo_takes_forks(t_fork_philo *philo)
+{
+	if (philo->left_hand == PHILO_PUT_FORK)
+	{
+		sem_wait(philo->misc_data->waiter);
+		sem_wait(philo->misc_data->chopstick);
+		calculate_time(philo, philo_takes_fork, 0);
+		philo->left_hand = PHILO_TAKE_FORK;
+		sem_post(philo->misc_data->waiter);
+	}
+	if (philo->right_hand == PHILO_PUT_FORK)
+	{
+		sem_wait(philo->misc_data->chopstick);
+		calculate_time(philo, philo_takes_fork, 0);
+		philo->right_hand = PHILO_TAKE_FORK;	
+	}
+}
+
+void			philo_put_forks(t_fork_philo *philo)
+{
+	sem_post(philo->misc_data->waiter);
+	philo->right_hand = PHILO_PUT_FORK;
+	sem_post(philo->misc_data->waiter);
+	philo->left_hand = PHILO_PUT_FORK;
+	calculate_time(philo, philo_is_sleeping, philo->
+	misc_data->time_to_sleep);
+	calculate_time(philo, philo_is_thinking, 0);
+}
+
+int				philo_lifetime(void *proc)
+{
+	pthread_t		watcher;
+	t_fork_philo	*data;
+	int				if_err;
+
+	if_err = pthread_create(&watcher, NULL, check_philo_table, proc);
+	if (if_err)
+	{
+		printf("philo_three: error: can't create a new thread\n");
+		return (EXIT_FAILURE);
+	}
+	pthread_detach(if_err);
+	data = (t_fork_philo *)proc;
+	while (!data->misc_data->dead_philo && !data->satiate_philo)
+	{
+		philo_takes_forks(data);
+		calculate_time(data, philo_is_eating,
+		data->misc_data->time_to_eat);
+		philo_put_forks(data);
+	}
+	//exit (0);
+	return (EXIT_SUCCESS);
+}
+
+int				dinner_is_over(t_fork_philo *data, int i)
+{
+	if (data->misc_data->num_of_time_philo_must_eat == -1)
+		return (0);
+	else if (data[i].swallow !=
+	data->misc_data->num_of_time_philo_must_eat)
+		return (0);
+	else if (i < data->misc_data->philo_num)
+		return (dinner_is_over(data, ++i));
+	return (1);
 }
 
 int             main(int argc, char *argv[])
@@ -96,27 +177,40 @@ int             main(int argc, char *argv[])
 	t_misc			misc_data;
 	int				i;
 
+	philo_proc = NULL;
     if (argc < 5 && argc > 6)
     {
         printf("Error: wrong number of arguments\n");
         return (1);
     }
 	misc_init_data(&misc_data, argc, argv);
-	fork_philo_init_data(philo_proc, &misc_data);
+	philo_proc = fork_philo_init_data(&misc_data);
+	if (!philo_proc)
+	{
+		printf("philo_three: error: can't allocate memory\n");
+		return (EXIT_FAILURE);
+	}
+	i = -1;
 	while (++i < misc_data.philo_num)
 	{
-		misc_data.philo_pid[i] = fork();
-		if (misc_data.philo_pid[i] == -1)
+		philo_proc[i].philo_pid = fork();
+		if (philo_proc[i].philo_pid == -1)
 		{
-			printf("philo_three: cannot open fork process\n");
+			printf("philo_three: can't create child process\n");
 			exit(EXIT_FAILURE);
 		}
-		else if (!misc_data.philo_pid[i])
+		else if (!philo_proc[i].philo_pid)
 		{
-			
+			philo_lifetime(&philo_proc[i]);
+			exit (0);
 		}
 	}
-	while (misc_data.dead_philo->__size && misc_data.swallow->__size > 0)
-		;
+	while (!misc_data.dead_philo || !dinner_is_over(philo_proc, 0))
+		waitpid(-1, &misc_data.status, 0);
+	i = -1;
+	while (++i < misc_data.philo_num)
+		kill(philo_proc[i].philo_pid, SIGKILL);
+	sem_close(misc_data.chopstick);
+	sem_close(misc_data.waiter);
     return (0);
 }
