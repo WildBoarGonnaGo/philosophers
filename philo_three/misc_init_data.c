@@ -26,21 +26,20 @@ int	misc_init_data(t_misc *data, int argc, char *argv[])
 	if (data->waiter == SEM_FAILED)
 		return (EXIT_FAILURE);
 	sem_unlink("/dead_philo");
-	data->dead_philo = sem_open("/dead_philo", O_CREAT, 0644, 0);
+	data->dead_philo = sem_open("/dead_philo", O_CREAT, 0644, 1);
 	if (data->dead_philo == SEM_FAILED)
 		return (EXIT_FAILURE);
-	data->dead_philo = 0;
 	sem_unlink("/chopstick");
 	data->chopstick = sem_open("/chopstick", O_CREAT, 0644, data->philo_num);
 	if (data->chopstick == SEM_FAILED)
 		return (EXIT_FAILURE);
-	//printf("data->chopstick = %d\n", *data->chopstick);
-	//data->swallow = 0;
-	data->sem_philo_dish = 0;
 	sem_unlink("/swallow");
-	data->swallow = sem_open("/swallow", O_CREAT, 0644, 0);
+	data->swallow = (data->num_of_time_philo_must_eat == -1) ?
+	sem_open("/swallow", O_CREAT, 0644, 1) :
+	sem_open("/swallow", O_CREAT, 0644, data->philo_num);
 	if (data->swallow == SEM_FAILED)
 		return (EXIT_FAILURE);
-	//data->philo_done_eat = 0;
+	sem_unlink("/msg");
+	data->msg = sem_open("/msg", O_CREAT, 0644, 1);
 	return (EXIT_SUCCESS);
 }

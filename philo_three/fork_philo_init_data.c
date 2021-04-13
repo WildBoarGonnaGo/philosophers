@@ -18,7 +18,6 @@ t_fork_philo	*fork_philo_init_data(t_misc *misc)
 	t_fork_philo	*data;
 
 	data = (t_fork_philo *)malloc(sizeof(t_fork_philo) * misc->philo_num);
-	//misc->philo_pid = (pid_t *)malloc(sizeof(pid_t) * misc->philo_num);
 	if (!data)
 	{
 		printf("philo_three: error: system insufficient resources\n");

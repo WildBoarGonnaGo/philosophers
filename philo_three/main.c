@@ -12,59 +12,59 @@
 
 #include "philo_three.h"
 
-int 			philo_is_eating(t_fork_philo *crnl, long diff_time,
-				long old_time)
+/*int				loop_condition(t_fork_philo *obj)
 {
-	printf("%ld %d is eating\n", old_time, crnl->num + 1);
-	crnl->philo_hp = crnl->misc_data->time_to_die - diff_time * 1000;
-	if (crnl->philo_hp <= 0)
-	{
-		printf("%ld %d died\n", old_time, crnl->num + 1);
-		//return (EXIT_FAILURE);
-	}
-	return (EXIT_SUCCESS);
-}
+	return (obj->misc_data->dead_philo->__size[0] &&
+	(obj->swallow != obj->misc_data->num_of_time_philo_must_eat));
+}*/
 
-int				philo_is_sleeping(t_fork_philo *crnl, long diff_time,
+/*int 			philo_is_eating(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%ld %d is sleeping\n", old_time, crnl->num + 1);
+	sem_wait(crnl->misc_data->msg);
+	if (loop_condition(crnl))
+		printf("%ld %d is eating\n", old_time, crnl->num + 1);
+	sem_post(crnl->misc_data->msg);
+	crnl->philo_hp = crnl->misc_data->time_to_die
+	- diff_time * 1000;
+	old_time *= 1;
+	return (EXIT_SUCCESS);
+}*/
+
+/*int				philo_is_sleeping(t_fork_philo *crnl, long diff_time,
+				long old_time)
+{
+	sem_wait(crnl->misc_data->msg);
+	if (loop_condition(crnl))
+		printf("%ld %d is sleeping\n", old_time, crnl->num + 1);
+	sem_post(crnl->misc_data->msg);
 	crnl->philo_hp -= diff_time * 1000;
-	if (crnl->philo_hp <= 0)
-	{
-		printf("%ld %d died\n", old_time, crnl->num + 1);
-		//return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
-}
+}*/
 
-int				philo_is_thinking(t_fork_philo *crnl, long diff_time,
+/*int				philo_is_thinking(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%ld %d is thinking\n", old_time, crnl->num + 1);
+	sem_wait(crnl->misc_data->msg);
+	if (loop_condition(crnl))
+		printf("%ld %d is thinking\n", old_time, crnl->num + 1);
+	sem_post(crnl->misc_data->msg);
 	crnl->philo_hp -= diff_time * 1000;
-	if (crnl->philo_hp <= 0)
-	{
-		printf("%ld %d died\n", old_time, crnl->num + 1);
-		//return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
-}
+}*/
 
-int				philo_takes_fork(t_fork_philo *crnl, long diff_time,
+/*int				philo_takes_fork(t_fork_philo *crnl, long diff_time,
 				long old_time)
 {
-	printf("%ld %d has taken a fork\n", old_time, crnl->num + 1);
+	sem_wait(crnl->misc_data->msg);
+	if (loop_condition(crnl))
+		printf("%ld %d has taken a fork\n", old_time, crnl->num + 1);
+	sem_post(crnl->misc_data->msg);
 	crnl->philo_hp -= diff_time * 1000;
-	if (crnl->philo_hp <= 0)
-	{
-		printf("%ld %d died\n", old_time, crnl->num + 1);
-		//return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
-}
+}*/
 
-int				calculate_time(t_fork_philo *data, 
+/*int				calculate_time(t_fork_philo *data, 
 				int (*func)(t_fork_philo *, long, long), long time)
 {
 	long	diff_time;
@@ -75,11 +75,14 @@ int				calculate_time(t_fork_philo *data,
 	gettimeofday(&data->misc_data->cur_time, NULL);
 	diff_time = data->misc_data->cur_time.tv_sec * 1000 +
 	data->misc_data->cur_time.tv_usec / 1000 - data->old_time ;
+	data->dead_old_time = old_time;
+	data->old_time = data->misc_data->cur_time.tv_sec * 1000 +
+	data->misc_data->cur_time.tv_usec / 1000;
 	data->time_travel += diff_time;
-	return (func(data, diff_time, old_time));
-}
+	return (func(data, diff_time, data->dead_old_time));
+}*/
 
-void			*check_philo_table(void *data)
+/*void			*check_philo_table(void *data)
 {
 	t_fork_philo	*checker;
 
@@ -89,27 +92,21 @@ void			*check_philo_table(void *data)
 		if (checker->philo_hp <= 0 || checker->swallow ==
 		checker->misc_data->num_of_time_philo_must_eat)
 		{	
-			/*checker->misc_data->dead_philo +=
-			(checker->philo_hp <= 0);
-			checker->satiate_philo += (checker->swallow ==
-			checker->misc_data->num_of_time_philo_must_eat);*/
 			if (checker->philo_hp <= 0)
 			{
-				++checker->philo_died;
-				sem_post(checker->misc_data->dead_philo);
-			}
-			if (checker->swallow == checker->misc_data->num_of_time_philo_must_eat)
-			{
-				++checker->satiate_philo;
-				sem_post(checker->misc_data->swallow);
-			}			
+				sem_wait(checker->misc_data->dead_philo);
+				sem_wait(checker->misc_data->msg);
+				printf("%ld %d died\n", checker->dead_old_time, 
+				checker->num + 1);
+				sem_post(checker->misc_data->msg);
+			}	
 			return (NULL);
 		}
 	}
 	return (NULL);
-}
+}*/
 
-void			philo_takes_forks(t_fork_philo *philo)
+/*void			philo_preparing_to_eat(t_fork_philo *philo)
 {
 	if (philo->left_hand == PHILO_PUT_FORK)
 	{
@@ -125,9 +122,9 @@ void			philo_takes_forks(t_fork_philo *philo)
 		calculate_time(philo, philo_takes_fork, 0);
 		philo->right_hand = PHILO_TAKE_FORK;	
 	}	
-}
+}*/
 
-void			philo_put_forks(t_fork_philo *philo)
+/*void			philo_put_forks(t_fork_philo *philo)
 {
 	sem_post(philo->misc_data->chopstick);
 	philo->right_hand = PHILO_PUT_FORK;
@@ -136,9 +133,9 @@ void			philo_put_forks(t_fork_philo *philo)
 	calculate_time(philo, philo_is_sleeping, philo->
 	misc_data->time_to_sleep);
 	calculate_time(philo, philo_is_thinking, 0);
-}
+}*/
 
-int				philo_lifetime(void *proc)
+/*int				philo_lifetime(void *proc)
 {
 	pthread_t		watcher;
 	t_fork_philo	*data;
@@ -152,28 +149,23 @@ int				philo_lifetime(void *proc)
 	}
 	pthread_detach(watcher);
 	data = (t_fork_philo *)proc;
-	while (!data->philo_died && !data->satiate_philo)
+	while (loop_condition(data))
 	{
-		philo_takes_forks(data);
+		if (loop_condition(data))
+			philo_preparing_to_eat(data);
+		if (loop_condition(data))
 		calculate_time(data, philo_is_eating,
 		data->misc_data->time_to_eat);
-		philo_put_forks(data);
+		if (loop_condition(data))
+			philo_put_forks(data);
+		data->swallow += 
+		(data->misc_data->num_of_time_philo_must_eat != -1);
 	}
-	//exit (0);
-	return (EXIT_SUCCESS);
-}
-
-int				dinner_is_over(t_fork_philo *data, int i)
-{
-	if (data->misc_data->num_of_time_philo_must_eat == -1)
-		return (0);
-	else if (data[i].swallow !=
+	if (data->swallow == 
 	data->misc_data->num_of_time_philo_must_eat)
-		return (0);
-	else if (i < data->misc_data->philo_num)
-		return (dinner_is_over(data, ++i));
-	return (1);
-}
+		sem_wait(data->misc_data->swallow);
+	return (EXIT_SUCCESS);
+}*/
 
 int             main(int argc, char *argv[])
 {
@@ -206,18 +198,20 @@ int             main(int argc, char *argv[])
 		else if (!philo_proc[i].philo_pid)
 		{
 			philo_lifetime(&philo_proc[i]);
+			printf("misc_data.swallow->__size[0] = %d\n", misc_data.swallow->__size[0]);
 			exit (0);
 		}
 	}
-	if (misc_data.num_of_time_philo_must_eat != -1)
-		misc_data.sem_philo_dish += (!sem_wait(misc_data.swallow));
-	while (!sem_wait(misc_data.dead_philo) &&
-	misc_data.sem_philo_dish != misc_data.num_of_time_philo_must_eat)
+	while (misc_data.dead_philo->__size[0] &&
+	misc_data.swallow->__size[0] > 0)
 		waitpid(-1, &misc_data.status, 0);
 	i = -1;
 	while (++i < misc_data.philo_num)
 		kill(philo_proc[i].philo_pid, SIGKILL);
 	sem_close(misc_data.chopstick);
 	sem_close(misc_data.waiter);
+	sem_close(misc_data.swallow);
+	sem_close(misc_data.msg);
+	sem_close(misc_data.dead_philo);
     return (0);
 }
