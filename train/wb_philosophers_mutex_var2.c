@@ -178,12 +178,7 @@ void                    *philos_lives_matter(void *data)
 	t_forks         *forks_init;
 
 	philo_manager = (t_philo_data *)data;
-	philo_init = philo_manager->philo;
-	forks_init = philo_manager->forks;
-	//pthread_mutex_init(&take_forks, NULL);
-	while (1)
-	{
-		pthread_mutex_lock(forks_init->take_forks);
+	philo_init = philo_manager->philo;error
 		pthread_mutex_lock(&forks_init->forks[philo_init->left_fork]);
 		calculate_time(philo_manager, 0, philo_takes_fork);
 		if (philo_manager->philo->input_time_data->error)

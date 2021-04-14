@@ -1,8 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/14 21:32:06 by lchantel          #+#    #+#              #
+#    Updated: 2021/04/14 22:40:23 by lchantel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= philo_one
 CC			= gcc
 FLAGS		= -g -Wall -Wextra -Werror
 SRC			= ./calculate_time.c		\
-			  ./memfree_alloc_2.c 		\
 			  ./memfree_alloc.c			\
 			  ./main.c					\
 			  ./philo_data_init.c		\
@@ -12,7 +23,11 @@ SRC			= ./calculate_time.c		\
 			  ./philo_seikatsu.c		\
 			  ./philo_takes_fork.c		\
 			  ./time_data_proc_init.c	\
-			  ./wb_atoi.c				
+			  ./wb_atoi.c				\
+			  ./set_ref_fork.c			\
+			  ./case_handle.c			\
+			  ./check_if_dish_life.c	\
+			  ./philo_routine_body.c	
 EXTERN_LIB	= -pthread
 
 all: $(SRC)

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memfree_alloc.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/14 21:32:18 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/14 23:30:55 by lchantel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-void    memfree_alloc(void **addr)
+void	memfree_alloc(void **addr)
 {
-    if (*addr)
-    {
-        free(*addr);
-        *addr = NULL;
-    }
+	if (*addr)
+	{
+		free(*addr);
+		*addr = NULL;
+	}
 }

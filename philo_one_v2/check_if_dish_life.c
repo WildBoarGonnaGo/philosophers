@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_ranchi.c                                     :+:      :+:    :+:   */
+/*   check_if_dish_life.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 22:42:14 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/15 00:15:47 by lchantel         ###   ########.fr       */
+/*   Created: 2021/04/14 21:22:16 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/14 23:28:42 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_one.h"
 
-void	*philo_ranchi(void *data)
+void	check_if_dish_life(t_time *time_set, t_philo_data *philo_data_set)
 {
-	t_philo_data	*philo_manager;
-
-	philo_manager = (t_philo_data *)data;
-	philo_manager->philo.ranchi_indx = -1;
-	while (++philo_manager->philo.ranchi_indx
-		< philo_manager->misc->number_of_time_philo_eats)
+	if (time_set->number_of_time_philo_eats != -1)
 	{
-		if (!philo_routine_body(philo_manager))
-			break ;
+		time_set->i = -1;
+		while (++time_set->i < time_set->num_of_philo)
+			pthread_join(philo_data_set[time_set->i].philo.philo_tid, NULL);
 	}
-	return (NULL);
+	else
+	{
+		while (1)
+		{
+			if (time_set->error)
+				break ;
+		}
+	}
 }
