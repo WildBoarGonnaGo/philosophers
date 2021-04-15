@@ -16,6 +16,7 @@ void			*check_philo_table(void *data)
 				sem_wait(checker->misc_data->msg);
 				printf("%ld %d died\n", checker->dead_old_time, 
 				checker->num + 1);
+				
 				sem_post(checker->misc_data->msg);
 			}	
 			return (NULL);

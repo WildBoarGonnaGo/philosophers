@@ -14,7 +14,8 @@ SRC			= ./calculate_time.c			\
 			  ./philo_preparing_to_eat.c	\
 			  ./philo_put_forks.c			\
 			  ./philo_takes_fork.c			\
-			  ./wb_atoi.c				
+			  ./wb_atoi.c					\
+			  ./memfree_alloc.c
 EXTERN_LIB	= -pthread
 
 all: $(SRC)

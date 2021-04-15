@@ -74,7 +74,7 @@ int				calculate_time(t_fork_philo *data,
 				int (*func)(t_fork_philo *, long, long), long time);
 void			*check_philo_table(void *data);
 void			philo_preparing_to_eat(t_fork_philo *philo);
-void			philo_put_forks(t_fork_philo *philo);
-int				philo_lifetime(void *proc);
+void			philo_put_forks(t_fork_philo *philo);			
+void			memfree_alloc(void **addr);
 
 #endif
