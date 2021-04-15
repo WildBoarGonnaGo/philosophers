@@ -24,7 +24,7 @@ all: $(SRC)
 	@echo "Let's make the philo_one executable ..."
 	@if [ ! -e $(NAME) ]; then									\
 		$(CC) $(FLAGS) $(SRC) -o $(NAME) $(EXTERN_LIB);			\
-		echo "$(NAME) executable is successfully made ...";	\
+		echo "$(NAME) executable is successfully made ...";		\
 	else														\
 		echo "executable is already made ...";					\
 	fi

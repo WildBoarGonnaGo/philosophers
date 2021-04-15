@@ -40,6 +40,7 @@ typedef struct			s_sema_philo
 
 typedef struct			s_philo_hands
 {
+	pthread_t		philo_tid;
 	uint16			left_hand;
 	uint16			right_hand;
 	long			philo_hp;
@@ -47,6 +48,7 @@ typedef struct			s_philo_hands
 	long			timeflow;
 	int				num;
 	t_sema_philo	*c_nerve;
+	long			dead_old_time;
 	int				stty_indx;
 }						t_philo_hands;
 
@@ -65,7 +67,7 @@ void					philo_is_sleeping(t_philo_hands *philo_data, long delta);
 void					philo_is_thinking(t_philo_hands *philo_data, long delta);
 void					waiter_fork_takeout(t_philo_hands *data);
 void					philo_choose_case(void *(*good_day)(void *),
-						t_philo_hands *data, pthread_t *thread_id);
+						t_philo_hands *data/*, pthread_t *thread_id*/);
 int						check_if_philo_satiety(int i, t_philo_hands *data);
 void					memfree_alloc(void **addr);
 void    				memfree_alloc2(void ***addr, int size);
