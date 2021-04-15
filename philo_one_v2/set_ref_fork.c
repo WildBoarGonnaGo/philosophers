@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/14 21:00:45 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/15 00:29:33 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/16 01:27:23 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,11 @@ void	set_ref_fork(t_philo_data *ref_philo, t_time
 	memset((void *)&ref_philo[indx], 0, sizeof(t_philo_data) - 1);
 	ref_philo[indx].misc = time_set;
 	ref_philo[indx].philo.num = indx;
-	if (time_set->num_of_philo == 2)
-	{
-		ref_philo[indx].philo.left_fork = &ref_philo[indx
-			% time_set->num_of_philo].philo.simple_fork;
-		ref_philo[indx].philo.right_fork = &ref_philo[(indx + 1)
-			% time_set->num_of_philo].philo.simple_fork;
-	}
-	else
-	{
-		ref_philo[indx].philo.left_fork = &ref_philo[(indx + 1)
-			% (time_set->num_of_philo)].philo.simple_fork;
-		ref_philo[indx].philo.right_fork
-			= &ref_philo[(indx + time_set->num_of_philo - 1)
-			% (time_set->num_of_philo)].philo.simple_fork;
-	}
+	ref_philo[indx].philo.left_fork = &ref_philo[(indx + 1)
+		% (time_set->num_of_philo)].philo.simple_fork;
+	ref_philo[indx].philo.right_fork
+		= &ref_philo[(indx + time_set->num_of_philo)
+		% (time_set->num_of_philo)].philo.simple_fork;
 	ref_philo[indx].philo.time_travel = 0;
 	gettimeofday(&temp, NULL);
 	ref_philo[indx].philo.old_time = temp.tv_sec * 1000

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo_one.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 22:09:52 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/16 01:27:12 by lchantel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_ONE_H
 # define PHILO_ONE_H
 
@@ -70,5 +82,7 @@ void					case_handle(t_time *time_set,
 void					check_if_dish_life(t_time *time_set,
 							t_philo_data *philo_data_set);
 int						philo_routine_body(t_philo_data *philo_manager);
+void					philo_is_thinking(t_philo_data *philo_data,
+							long delta);
 
 #endif

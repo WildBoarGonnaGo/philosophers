@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/15 22:08:54 by lchantel          #+#    #+#              #
+#    Updated: 2021/04/15 22:08:55 by lchantel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= philo_three
 CC			= gcc
 FLAGS		= -g -Wall -Wextra -Werror
@@ -15,7 +27,9 @@ SRC			= ./calculate_time.c			\
 			  ./philo_put_forks.c			\
 			  ./philo_takes_fork.c			\
 			  ./wb_atoi.c					\
-			  ./memfree_alloc.c
+			  ./memfree_alloc.c				\
+			  ./fork_proc.c
+
 EXTERN_LIB	= -pthread
 
 all: $(SRC)

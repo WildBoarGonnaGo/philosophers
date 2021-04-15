@@ -1,10 +1,21 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/15 22:11:57 by lchantel          #+#    #+#              #
+#    Updated: 2021/04/15 22:11:59 by lchantel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= philo_two
 CC			= gcc
 FLAGS		= -g -Wall -Wextra -Werror
 SRC			= ./calculate_time.c			\
 			  ./check_if_philo_satiety.c	\
 			  ./main.c						\
-			  ./memfree_alloc_2.c 			\
 			  ./memfree_alloc.c				\
 			  ./philo_choose_case.c			\
 			  ./philo_hands_init.c			\
@@ -17,7 +28,8 @@ SRC			= ./calculate_time.c			\
 			  ./sema_philo_data_init.c		\
 			  ./waiter_fork_takeout.c		\
 			  ./waiter_give_fork.c			\
-			  ./wb_atoi.c
+			  ./wb_atoi.c					\
+			  ./check_pidt_case_state.c		
 EXTERN_LIB	= -pthread
 
 all: $(SRC)

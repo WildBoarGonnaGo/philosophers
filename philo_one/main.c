@@ -15,7 +15,6 @@ t_philo_data			*num_of_philo_init(t_time *time_set, t_forks *forks_set)
 		memset((void *)&data[i], 0, sizeof(t_philo_data) - 1);
 		data[i].philo = (t_philo *)malloc(sizeof(t_philo));
 		data[i].forks = (t_forks *)malloc(sizeof(t_forks));
-		//data[i].forks = (t_forks *)malloc(sizeof(t_forks));
 		philo_data_init(data[i].philo, i, i % time_set->num_of_philo,
 		(i + 1) % time_set->num_of_philo);
 		data[i].philo->philo_hp = (long)time_set->time_to_die; 

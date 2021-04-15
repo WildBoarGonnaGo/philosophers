@@ -1,21 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   waiter_fork_takeout.c                              :+:      :+:    :+:   */
+/*   fork_proc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/15 22:13:16 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/15 22:13:18 by lchantel         ###   ########.fr       */
+/*   Created: 2021/04/15 21:09:20 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/15 22:30:27 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
-void	waiter_fork_takeout(t_philo_hands *data)
+void	fork_proc(t_misc *misc_data, t_fork_philo *philo_proc)
 {
-	sem_post(data->c_nerve->forks);
-	sem_post(data->c_nerve->forks);
-	data->left_hand = DROPFORK;
-	data->right_hand = DROPFORK;
+	int	i;
+
+	i = -1;
+	while (++i < misc_data->philo_num)
+	{
+		philo_proc[i].philo_pid = fork();
+		if (!philo_proc[i].philo_pid)
+		{
+			philo_lifetime(&philo_proc[i]);
+			exit(0);
+		}
+	}
 }

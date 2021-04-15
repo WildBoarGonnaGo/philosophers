@@ -6,7 +6,7 @@
 #    By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/04/14 21:32:06 by lchantel          #+#    #+#              #
-#    Updated: 2021/04/14 22:40:23 by lchantel         ###   ########.fr        #
+#    Updated: 2021/04/16 00:59:45 by lchantel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,8 @@ SRC			= ./calculate_time.c		\
 			  ./set_ref_fork.c			\
 			  ./case_handle.c			\
 			  ./check_if_dish_life.c	\
-			  ./philo_routine_body.c	
+			  ./philo_routine_body.c	\
+			  ./philo_is_thinking.c
 EXTERN_LIB	= -pthread
 
 all: $(SRC)

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   waiter_give_fork.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 22:13:23 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/15 22:13:25 by lchantel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_two.h"
 
-int						waiter_give_fork(t_philo_hands *data)
+int	waiter_give_fork(t_philo_hands *data)
 {
 	if (data->left_hand != TAKEFORK)
 	{
