@@ -17,6 +17,8 @@ void	*philo_seikatsu(void *data)
 	t_philo_data	*philo_manager;
 
 	philo_manager = (t_philo_data *)data;
+	if (philo_manager->philo.num % 2)
+		usleep(0.9 * philo_manager->misc->time_to_sleep);
 	while (1)
 	{
 		if (!philo_routine_body(philo_manager))

@@ -18,6 +18,8 @@ void	*philo_ranchi(void *data)
 
 	philo_manager = (t_philo_data *)data;
 	philo_manager->philo.ranchi_indx = -1;
+	if (philo_manager->philo.num % 2)
+		usleep(0.9 * philo_manager->misc->time_to_sleep);
 	while (++philo_manager->philo.ranchi_indx
 		< philo_manager->misc->number_of_time_philo_eats)
 	{
