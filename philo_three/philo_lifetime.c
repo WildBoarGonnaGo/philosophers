@@ -20,8 +20,6 @@ void	philo_lifetime(void *proc)
 	pthread_create(&watcher, NULL, check_philo_table, proc);
 	pthread_detach(watcher);
 	data = (t_fork_philo *)proc;
-	/*if (data->num % 2)
-		usleep(0.9 * data->misc_data->time_to_eat);*/
 	while (loop_condition(data))
 	{
 		if (loop_condition(data))

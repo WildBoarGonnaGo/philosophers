@@ -19,5 +19,5 @@ void	philo_takes_fork(t_fork_philo *crnl, long diff_time,
 	if (loop_condition(crnl))
 		printf("%ld %d has taken a fork\n", old_time, crnl->num + 1);
 	sem_post(crnl->misc_data->msg);
-	crnl->philo_hp -= diff_time * 1000;
+	crnl->philo_hp -= diff_time;
 }

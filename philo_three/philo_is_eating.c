@@ -19,8 +19,6 @@ void	philo_is_eating(t_fork_philo *crnl, long diff_time,
 	if (loop_condition(crnl))
 		printf("%ld %d is eating\n", old_time, crnl->num + 1);
 	sem_post(crnl->misc_data->msg);
-	printf("philo_hp[%d] = %ld\n", crnl->num, crnl->philo_hp);
-	printf("diff_time = %ld\n", diff_time);
 	crnl->philo_hp = crnl->misc_data->time_to_die
 		- diff_time;
 	//old_time *= 1;

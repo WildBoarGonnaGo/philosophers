@@ -42,7 +42,7 @@ void	misc_init_data(t_misc *data, int argc, char *argv[])
 	if (data->num_of_time_philo_must_eat == -1)
 		data->swallow = sem_open("/swallow", O_CREAT, 0644, 1);
 	else
-		sem_open("/swallow", O_CREAT, 0644, data->philo_num);
+		data->swallow = sem_open("/swallow", O_CREAT, 0644, data->philo_num);
 	sem_unlink("/msg");
 	data->msg = sem_open("/msg", O_CREAT, 0644, 1);
 }
