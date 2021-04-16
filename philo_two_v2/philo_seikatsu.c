@@ -17,6 +17,8 @@ void	*philo_seikatsu(void *args)
 	t_philo_hands	*sinner;
 
 	sinner = (t_philo_hands *)args;
+	if (sinner->num % 2)
+		usleep(0.9 * sinner->c_nerve->time_to_sleep);
 	while (1)
 	{
 		if (!waiter_give_fork(sinner))
