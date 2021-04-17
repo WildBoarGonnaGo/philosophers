@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 21:40:36 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/16 02:42:07 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/17 20:00:23 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 void	philo_is_sleeping(t_fork_philo *crnl, long diff_time,
 			long old_time)
 {
-	sem_wait(crnl->misc_data->msg);
-	if (loop_condition(crnl))
-		printf("%ld %d is sleeping\n", old_time, crnl->num + 1);
-	sem_post(crnl->misc_data->msg);
 	crnl->philo_hp -= diff_time;
+	if (crnl->philo_hp > 0)
+	{
+		sem_wait(crnl->misc_data->msg);
+		if (loop_condition(crnl))
+			printf("%ld %d is sleeping\n", old_time, crnl->num + 1);
+		sem_post(crnl->misc_data->msg);
+	}
 }

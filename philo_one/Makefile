@@ -1,9 +1,19 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/04/14 21:32:06 by lchantel          #+#    #+#              #
+#    Updated: 2021/04/17 19:13:30 by lchantel         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME 		= philo_one
 CC			= gcc
 FLAGS		= -g -Wall -Wextra -Werror
 SRC			= ./calculate_time.c		\
-			  ./forks_data_init.c		\
-			  ./memfree_alloc_2.c 		\
 			  ./memfree_alloc.c			\
 			  ./main.c					\
 			  ./philo_data_init.c		\
@@ -12,10 +22,14 @@ SRC			= ./calculate_time.c		\
 			  ./philo_ranchi.c			\
 			  ./philo_seikatsu.c		\
 			  ./philo_takes_fork.c		\
-			  ./return_usec_round.c		\
 			  ./time_data_proc_init.c	\
-			  ./wb_atoi.c				
-EXTERN_LIB	= -lpthread
+			  ./wb_atoi.c				\
+			  ./set_ref_fork.c			\
+			  ./case_handle.c			\
+			  ./check_if_dish_life.c	\
+			  ./philo_routine_body.c	\
+			  ./philo_is_thinking.c		
+EXTERN_LIB	= -pthread
 
 all: $(SRC)
 	@echo "Let's make the philo_one executable ..."

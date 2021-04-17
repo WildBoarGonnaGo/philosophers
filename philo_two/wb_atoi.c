@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   wb_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/04/15 22:13:30 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/16 20:21:13 by lchantel         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_two.h"
 
-int		wb_isdigit(char c)
+int	wb_isdigit(char c)
 {
 	return ((c >= '0' && c <= '9'));
 }
 
-int		wb_pow(int digit, uint32 pow)
+int	wb_pow(int digit, t_uint32 pow)
 {
 	if (!pow)
 		return (1);
@@ -14,7 +26,7 @@ int		wb_pow(int digit, uint32 pow)
 	return (digit * wb_pow(digit, --pow));
 }
 
-uint16		wb_atoi(char *str, uint16 res, int flags)
+t_uint16	wb_atoi(char *str, t_uint16 res, int flags)
 {
 	if (!str)
 		return (0);
@@ -22,7 +34,7 @@ uint16		wb_atoi(char *str, uint16 res, int flags)
 		return (wb_atoi(++str, res, flags));
 	else if ((*str == '-') && (flags & PLUSMINUS))
 		return (wb_atoi(++str, res, (flags | SUBZERO)
-		& ~(SPACE | PLUSMINUS)));
+				& ~(SPACE | PLUSMINUS)));
 	else if ((*str == '+') && (flags & PLUSMINUS))
 		return (wb_atoi(++str, res, flags & ~(SPACE | PLUSMINUS)));
 	else if (*str == '0' && (flags & ZERO))

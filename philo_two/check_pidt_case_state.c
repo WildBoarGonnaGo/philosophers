@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_data_init.c                                  :+:      :+:    :+:   */
+/*   check_pidt_case_state.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 21:30:56 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/15 22:09:37 by lchantel         ###   ########.fr       */
+/*   Created: 2021/04/15 19:49:19 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/16 20:20:38 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
-void	philo_data_init(t_philo_data *philo, t_uint32 num)
+void	check_pidt_case_state(t_sema_philo *prot,
+			t_philo_hands *heretic)
 {
-	struct timeval	temp;
-	int				indx;
-
-	indx = (num + 1) % philo->misc->num_of_philo;
-	philo->philo.left_fork = &philo[indx].philo.simple_fork;
-	gettimeofday(&temp, NULL);
-	philo->philo.time_travel = 0;
-	philo->philo.old_time = temp.tv_sec * 1000 + temp.tv_usec / 1000;
+	if (prot->num_of_time_philo_must_eat != -1)
+	{
+		prot->indx = -1;
+		while (++prot->indx < prot->philo_num)
+			pthread_join(heretic[prot->indx].philo_tid, NULL);
+	}
+	else
+	{
+		while (1)
+		{
+			if (prot->error)
+				break ;
+		}
+	}
 }

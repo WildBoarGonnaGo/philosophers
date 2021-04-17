@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 21:43:41 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/16 01:55:45 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/16 21:33:11 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	philo_lifetime(void *proc)
 	pthread_create(&watcher, NULL, check_philo_table, proc);
 	pthread_detach(watcher);
 	data = (t_fork_philo *)proc;
+	if (!(data->num % 2))
+		usleep(0.9 * data->misc_data->time_to_sleep);
 	while (loop_condition(data))
 	{
 		if (loop_condition(data))

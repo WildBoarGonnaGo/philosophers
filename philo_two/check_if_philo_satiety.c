@@ -1,28 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_seikatsu.c                                   :+:      :+:    :+:   */
+/*   check_if_philo_satiety.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/14 21:42:17 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/16 01:06:17 by lchantel         ###   ########.fr       */
+/*   Created: 2021/04/15 22:11:43 by lchantel          #+#    #+#             */
+/*   Updated: 2021/04/16 20:20:37 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_one.h"
+#include "philo_two.h"
 
-void	*philo_seikatsu(void *data)
+int	check_if_philo_satiety(int i, t_philo_hands *data)
 {
-	t_philo_data	*philo_manager;
-
-	philo_manager = (t_philo_data *)data;
-	if (philo_manager->philo.num % 2)
-		usleep(0.9 * philo_manager->misc->time_to_sleep);
-	while (1)
-	{
-		if (!philo_routine_body(philo_manager))
-			break ;
-	}
-	return (NULL);
+	if (data[i].c_nerve->num_of_time_philo_must_eat == -1)
+		return (0);
+	else if (data[i].stty_indx
+		!= data[i].c_nerve->num_of_time_philo_must_eat)
+		return (0);
+	else if (i < data[i].c_nerve->philo_num)
+		check_if_philo_satiety(++i, data);
+	return (1);
 }

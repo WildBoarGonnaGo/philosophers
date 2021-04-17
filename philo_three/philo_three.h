@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 21:49:53 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/15 23:05:27 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/16 20:32:06 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ typedef struct s_fork_philo
 	t_uint16			num;
 	pid_t				philo_pid;
 	t_uint16			swallow;
-	//int					left_hand;
-	//int					right_hand;
 	t_uint16			satiate_philo;
 	t_misc				*misc_data;
 	long				philo_hp;
