@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 21:49:53 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/17 20:54:59 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/18 08:52:05 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ typedef struct s_misc
 	sem_t				*swallow;
 	sem_t				*msg;
 	struct timeval		cur_time;
+	int					is_dead;
 }						t_misc;
 
 typedef struct s_fork_philo

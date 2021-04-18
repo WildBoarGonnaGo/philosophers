@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 18:58:15 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/16 02:22:14 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/18 09:06:57 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,5 @@ void	misc_init_data(t_misc *data, int argc, char *argv[])
 		data->swallow = sem_open("/swallow", O_CREAT, 0644, data->philo_num);
 	sem_unlink("/msg");
 	data->msg = sem_open("/msg", O_CREAT, 0644, 1);
+	data->is_dead = 1;
 }
