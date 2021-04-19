@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 21:27:14 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/18 21:18:43 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:51:54 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	*check_philo_table(void *data)
 				printf("%ld %d died\n", checker->time_travel
 					+ checker->philo_hp / 1000, checker->num + 1);
 			}
-			sem_post(checker->misc_data->msg);
 			sem_wait(checker->misc_data->dead_philo);
 			break ;
 		}

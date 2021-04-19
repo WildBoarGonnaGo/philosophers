@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/11 18:56:13 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/18 21:18:58 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:31:45 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	main(int argc, char *argv[])
 		&& misc_data.swallow->__size[0] > 0
 		&& misc_data.is_dead)
 		waitpid(-1, &misc_data.status, 0);
-	i = -1;
 	while (++i < misc_data.philo_num)
 		kill(philo_proc[i].philo_pid, SIGKILL);
 	sem_finish(&misc_data);

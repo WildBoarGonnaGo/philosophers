@@ -6,7 +6,7 @@
 /*   By: lchantel <lchantel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/15 22:11:50 by lchantel          #+#    #+#             */
-/*   Updated: 2021/04/17 19:28:09 by lchantel         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:31:26 by lchantel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int	main(int argc, char *argv[])
 	sem_close(prot.forks);
 	sem_close(prot.waiter);
 	sem_close(prot.msg);
+	sem_close(prot.death);
 	memfree_alloc((void **)&heretic);
 	return (0);
 }
